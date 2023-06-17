@@ -144,13 +144,14 @@ class WeaviateDocumentStore(KeywordDocumentStore):
         super().__init__()
 
         # Connect to Weaviate server using python binding
-        weaviate_url = f"{host}:{port}"
+        weaviate_url = f"{host}" ## : changing :port for gcp instance
         secret = self._get_auth_secret(
             username, password, client_secret, access_token, expires_in, refresh_token, scope
         )
         # Timeout config can only be defined as a list in YAML, but Weaviate expects a tuple
         if isinstance(timeout_config, list):
             timeout_config = tuple(timeout_config)
+        print("Host is " , weaviate_url)
         self.weaviate_client = client.Client(
             url=weaviate_url,
             auth_client_secret=secret,
